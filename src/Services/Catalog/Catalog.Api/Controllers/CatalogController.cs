@@ -15,6 +15,7 @@ namespace Catalog.Api.Controllers
         public CatalogController(ILogger<CatalogController> logger, IProductRepository productRepository)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
 
         }
         [HttpGet]

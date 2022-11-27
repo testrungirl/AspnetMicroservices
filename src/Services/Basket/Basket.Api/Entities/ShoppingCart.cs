@@ -20,5 +20,6 @@
                 }
                 return totalProce;
             }
+        }
     }
 }

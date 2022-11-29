@@ -11,6 +11,18 @@ namespace Basket.Api.Repository
         {
             _redisCache= redisCache ?? throw new ArgumentNullException(nameof(redisCache));
         }
+
+        //public async Task<ShoppingCart> CreateBasket(ShoppingCart cart)
+        //{
+        //    var basket = await _redisCache.GetStringAsync(cart.UserName);
+        //    if (!String.IsNullOrEmpty(basket)
+        //    {
+        //        return null;
+        //    }
+
+
+        //}
+
         public async Task DeleteBasket(string userName)
         {
             await _redisCache.RemoveAsync(userName);

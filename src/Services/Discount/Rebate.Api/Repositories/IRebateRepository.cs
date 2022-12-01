@@ -1,12 +1,13 @@
-﻿using Rebate.Api.Models;
+﻿using Rebate.Api.Data;
+using Rebate.Api.Models;
 
 namespace Rebate.Api.Repositories
 {
     public interface IRebateRepository
     {
-        Task<Coupon> GetRebate(string productName);
-        Task<bool> CreateRebate(Coupon coupon);
-        Task<bool> DeleteRebate(string productName);
-        Task<bool> UpdateRebate(Coupon coupon);
+        Task<GenericResponse<Coupon>> GetRebate(string productName);
+        Task<GenericResponse<bool>> CreateRebate(Coupon coupon);
+        Task<GenericResponse<bool>> DeleteRebate(string productName);
+        Task<GenericResponse<bool>> UpdateRebate(Coupon coupon);
     }
 }

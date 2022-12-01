@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using Rebate.Api.Extensions;
 using Rebate.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,8 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddScoped<IRebateRepository, RebateRepository>();
 
 var app = builder.Build();
+
+app.MigrateDatabase<Program>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -8,7 +8,7 @@ namespace Catalog.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class CatalogController : Controller
+    public class CatalogController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
         private readonly ILogger<CatalogController> _logger;
@@ -18,7 +18,7 @@ namespace Catalog.Api.Controllers
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
 
         }
-        [HttpGet]
+        [HttpGet] 
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {

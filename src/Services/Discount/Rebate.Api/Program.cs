@@ -1,3 +1,6 @@
+using Microsoft.OpenApi.Models;
+using Rebate.Api.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,7 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Rebate API",
+    });
+});
+builder.Services.AddScoped<IRebateRepository, RebateRepository>();
 
 var app = builder.Build();
 
@@ -13,7 +24,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Rebate API V1");
+        //options.RoutePrefix = string.Empty;
+    });
 }
 
 app.UseHttpsRedirection();

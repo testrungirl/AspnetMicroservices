@@ -16,6 +16,12 @@ services:
       context: .
       dockerfile: src/Services/Basket/Basket.Api/Dockerfile
 
+  rebate.api:
+    image: ${DOCKER_REGISTRY-}rebateapi
+    build:
+      context: .
+      dockerfile: src/Services/Discount/Rebate.Api/Dockerfile
+
 volumes:
   postgres_data:
   pgadmin_data:

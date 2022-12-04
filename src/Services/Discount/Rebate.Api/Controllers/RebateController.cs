@@ -18,15 +18,20 @@ namespace Rebate.Api.Controllers
 
         [HttpGet(Name ="GetCouponByName")]
         [ProducesResponseType(typeof(Coupon), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.BadGateway)]
         public async Task<IActionResult> GetCoupon(string ProductName)
         {
+            if(ProductName == null)
+            {
+                return BadRequest();
+            }
             var couponData = await _rebateRepository.GetRebate(ProductName);
             if (couponData.Success)
             {
                 return Ok(couponData.Data);
             }
-            return NotFound(couponData.Message);
+            return StatusCode(502);
         }
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]

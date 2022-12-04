@@ -2,7 +2,6 @@
 using Rebate.Api.Models;
 using Rebate.Api.Data;
 using Dapper;
-using Microsoft.Extensions.Configuration;
 using System.Data;
 
 namespace Rebate.Api.Repositories

@@ -3,6 +3,7 @@ using Rebate.GRPC.Data;
 using Dapper;
 using System.Data;
 using Rebate.GRPC.Models;
+using Npgsql;
 
 namespace Rebate.GRPC.Repositories
 {

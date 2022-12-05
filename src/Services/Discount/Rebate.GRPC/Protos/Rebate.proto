@@ -3,10 +3,10 @@ syntax = "proto3";
 option csharp_namespace = "Rebate.GRPC.Protos";
 
 service RebateProtoService{
-	rpc CreateCoupon (CData) returns (CouponModel);
-	rpc GetCoupon (ProductName) returns (CouponModel);
-	rpc EditCoupon (CData) returns (CouponModel);
-	rpc DeleteCoupon (ProductName) returns (StatusMessage);
+	rpc CreateDiscount (CData) returns (CouponModel);
+	rpc GetDiscount (ProductName) returns (CouponModel);
+	rpc EditDiscount (CData) returns (CouponModel);
+	rpc DeleteDiscount (ProductName) returns (StatusMessage);
 }
 
 message ProductName{

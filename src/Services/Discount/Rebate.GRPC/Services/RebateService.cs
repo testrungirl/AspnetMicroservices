@@ -18,7 +18,7 @@ namespace Rebate.GRPC.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public override async Task<CouponModel> GetCoupon(ProductName request, ServerCallContext context)
+        public override async Task<CouponModel> GetDiscount(ProductName request, ServerCallContext context)
         {
             if(request.Name == null)
             {
@@ -32,7 +32,7 @@ namespace Rebate.GRPC.Services
             }
             throw new RpcException(new Status(StatusCode.NotFound, "Rebate with ProductName does not exists"));
         }
-        public override async Task<CouponModel> CreateCoupon(CData request, ServerCallContext context)
+        public override async Task<CouponModel> CreateDiscount(CData request, ServerCallContext context)
         {
             if (request== null)
             {
@@ -47,7 +47,7 @@ namespace Rebate.GRPC.Services
             }
             throw new RpcException(new Status(StatusCode.Internal, "An erroer occured"));
         }
-        public override async Task<StatusMessage> DeleteCoupon(ProductName request, ServerCallContext context)
+        public override async Task<StatusMessage> DeleteDiscount(ProductName request, ServerCallContext context)
         {
             if (request.Name == null)
             {
@@ -63,7 +63,7 @@ namespace Rebate.GRPC.Services
             }
             throw new RpcException(new Status(StatusCode.NotFound, "Rebate with ProductName does not exists"));
         }
-        public override async Task<CouponModel> EditCoupon(CData request, ServerCallContext context)
+        public override async Task<CouponModel> EditDiscount(CData request, ServerCallContext context)
         {
             if (request == null)
             {

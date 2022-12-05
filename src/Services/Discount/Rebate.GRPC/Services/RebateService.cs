@@ -12,10 +12,11 @@ namespace Rebate.GRPC.Services
         private readonly IMapper _mapper;
         private readonly ILogger<RebateService> _logger;
 
-        public RebateService(IRebateRepository rebateRepository, ILogger<RebateService> logger)
+        public RebateService(IRebateRepository rebateRepository, ILogger<RebateService> logger, IMapper mapper)
         {
             _rebateRepository = rebateRepository ?? throw new ArgumentNullException(nameof(rebateRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _mapper = mapper ?? throw new ArgumentNullException();
         }
 
         public override async Task<CouponModel> GetDiscount(ProductName request, ServerCallContext context)

@@ -7,8 +7,14 @@ services:
   rebatedb:
     image: postgres:latest
 
+  mongodb:
+    image: mongo:latest
+
   pgadmin:
     image: dpage/pgadmin4
+
+  catalogdb:
+    image: mongo
 
   basket.api:
     image: ${DOCKER_REGISTRY-}basketapi
@@ -22,6 +28,13 @@ services:
       context: .
       dockerfile: src/Services/Discount/Rebate.Api/Dockerfile
 
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: src/Services/Catalog/Catalog.Api/Dockerfile
+
 volumes:
   postgres_data:
   pgadmin_data:
+  mongo_data:

@@ -18,7 +18,15 @@ services:
       - "5432:5432" 
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-  
+
+  catalogdb:
+    container_name: catalogdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
   pgadmin:
     container_name: pgadmin
     environment:
@@ -48,4 +56,15 @@ services:
     depends_on:
       - rebatedb
     ports:
-      - "8002:80"    
+      - "8002:80" 
+      
+  catalog.api:
+    container_name: catalog.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb//catalogdb:27017"
+    depends_on:
+      - catalogdb
+    ports:
+      - "8000:80" 
+  

@@ -34,7 +34,14 @@ services:
       context: .
       dockerfile: src/Services/Catalog/Catalog.Api/Dockerfile
 
+  rebate.grpc:
+    image: ${DOCKER_REGISTRY-}rebategrpc
+    build:
+      context: .
+      dockerfile: src/Services/Discount/Rebate.GRPC/Dockerfile
+
 volumes:
   postgres_data:
   pgadmin_data:
   mongo_data:
+

@@ -43,6 +43,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=basketdb:6379"
+      - "GrpcSettings:RebateUrl=http://rebate.grpc"
     depends_on:
       - basketdb
     ports:
@@ -62,9 +63,19 @@ services:
     container_name: catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=mongodb//catalogdb:27017"
+      - "DatabaseSettings:ConnectionString=mongodb//catalogdb:27017"     
     depends_on:
       - catalogdb
     ports:
       - "8000:80" 
   
+  rebate.grpc:
+    container_name: rebate.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+       - "ConnectionString:Server=rebatedb;Port=5432;Database=RebateDb;User Id=admin;Password=admin1234;"
+    depends_on:
+      - rebatedb
+    ports:
+      - "8003:80"
+

@@ -22,7 +22,7 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
             _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-
+         
         public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
             var orderEntity = _mapper.Map<Order>(request);

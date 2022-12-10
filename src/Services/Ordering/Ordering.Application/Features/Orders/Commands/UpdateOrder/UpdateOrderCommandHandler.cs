@@ -14,9 +14,9 @@ namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
 
         public UpdateOrderCommandHandler(IOrderRepository orderRepo, IMapper mapper, ILogger<UpdateOrderCommandHandler> logger)
         {
-            _orderRepo = orderRepo;
-            _mapper = mapper;
-            _logger = logger;
+            _orderRepo = orderRepo ?? throw new ArgumentNullException(nameof(orderRepo));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         async Task<Unit> IRequestHandler<UpdateOrderCommand, Unit>.Handle(UpdateOrderCommand request, CancellationToken cancellationToken)

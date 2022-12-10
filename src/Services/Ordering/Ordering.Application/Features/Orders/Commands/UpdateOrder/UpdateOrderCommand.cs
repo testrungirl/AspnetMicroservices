@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
 {
-    internal class UpdateOrderCommand : IRequest
+    public class UpdateOrderCommand : IRequest
     {
         public int Id { get; set; }
         public string UserName { get; set; }

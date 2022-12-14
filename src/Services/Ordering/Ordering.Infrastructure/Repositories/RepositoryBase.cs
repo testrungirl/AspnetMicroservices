@@ -54,7 +54,7 @@ namespace Ordering.Infrastructure.Repositories
 
         }
 
-        public Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, List<Expression<Func<T, object>>> includes = null, bool disableTracking = true)
+        public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, List<Expression<Func<T, object>>> includes = null, bool disableTracking = true)
         {
             IQueryable<T> query = _dbContext.Set<T>();
             if (disableTracking) query = query.AsNoTracking();

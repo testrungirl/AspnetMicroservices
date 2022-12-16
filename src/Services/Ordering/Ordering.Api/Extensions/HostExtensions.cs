@@ -13,30 +13,31 @@ namespace Ordering.Api.Extensions
                 var services = scope.ServiceProvider;
                 var logger = services.GetRequiredService<ILogger<TContext>>();
                 var context = services.GetService<TContext>();
-            }
-            try
-            {
-                logger.LogInformation("Migrating database associated with context {DbContextName}", typeof(TContext).Name);
 
-                InvokeSeeder(seeder, context, services);
-
-                logger.LogInformation("Migrated database associated with context {DbContextName}", typeof(TContext).Name);
-
-
-            }
-            catch (SqlException ex)
-            {
-
-                logger.LogError(ex, "An error occured while migrating the database used on context {DbContextName}", typeof(TContext).Name);
-
-                if (retryForAvailability < 50)
+                try
                 {
-                    retryForAvailability++;
-                    System.Threading.Thread.Sleep(2000);
-                    MigrateDatabase<TContext>(host, seeder, retryForAvailability);
+                    logger.LogInformation("Migrating database associated with context {DbContextName}", typeof(TContext).Name);
+
+                    InvokeSeeder(seeder, context, services);
+
+                    logger.LogInformation("Migrated database associated with context {DbContextName}", typeof(TContext).Name);
+
+
                 }
+                catch (SqlException ex)
+                {
+
+                    logger.LogError(ex, "An error occured while migrating the database used on context {DbContextName}", typeof(TContext).Name);
+
+                    if (retryForAvailability < 50)
+                    {
+                        retryForAvailability++;
+                        System.Threading.Thread.Sleep(2000);
+                        MigrateDatabase<TContext>(host, seeder, retryForAvailability);
+                    }
+                }
+                return host;
             }
-            return host;
         }
         private static void InvokeSeeder<TContext>(Action<TContext, IServiceProvider> seeder,
                                                     TContext context, IServiceProvider services)

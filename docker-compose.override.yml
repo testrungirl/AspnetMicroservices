@@ -27,6 +27,16 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  orderdb:
+    container_name: orderdb
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Microsoft2022
+      - MSSQL_PID=Developer
+    restart: always
+    ports:
+      - "1433:1433" 
+
   pgadmin:
     container_name: pgadmin
     environment:

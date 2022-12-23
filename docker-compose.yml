@@ -7,14 +7,14 @@ services:
   rebatedb:
     image: postgres:latest
 
-  mongodb:
-    image: mongo:latest
-
   pgadmin:
     image: dpage/pgadmin4
 
   catalogdb:
     image: mongo
+
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
 
   basket.api:
     image: ${DOCKER_REGISTRY-}basketapi

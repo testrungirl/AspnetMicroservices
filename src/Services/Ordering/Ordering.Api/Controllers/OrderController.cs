@@ -22,11 +22,17 @@ namespace Ordering.Api.Controllers
 
         [HttpGet("{userName}", Name = "GetOrder")]
         [ProducesResponseType(typeof(IEnumerable<OrdersVm>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<OrdersVm>>> GetOrdersByUserName(string userName)
         {
             var query = new GetOrderListQuery(userName);
             var orders = await _mediator.Send(query);
-            return Ok(orders);
+            if(orders.Count > 0)
+            {
+                return Ok(orders);
+
+            }
+            return NotFound();
         }
         //testing Purpose
         [HttpPost(Name = "CheckoutOrder")]

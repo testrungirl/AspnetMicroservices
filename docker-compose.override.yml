@@ -63,7 +63,7 @@ services:
     container_name: rebate.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionString:Server=rebatedb;Port=5432;Database=RebateDb;User Id=admin;Password=admin1234;"
+      - "DatabaseSettings:ConnectionString=Server=rebatedb;Port=5432;Database=RebateDb;User Id=admin;Password=admin1234;"
     depends_on:
       - rebatedb
     ports:
@@ -83,9 +83,19 @@ services:
     container_name: rebate.grpc
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-       - "ConnectionString:Server=rebatedb;Port=5432;Database=RebateDb;User Id=admin;Password=admin1234;"
+      - "DatabaseSettings:ConnectionString=Server=rebatedb;Port=5432;Database=RebateDb;User Id=admin;Password=admin1234;"
     depends_on:
       - rebatedb
     ports:
       - "8003:80"
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=Microsoft2022;TrustServerCertificate=True;"
+    depends_on:
+      - orderdb
+    ports:
+      - "8004:80"
 

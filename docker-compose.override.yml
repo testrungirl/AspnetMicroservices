@@ -29,21 +29,21 @@ services:
 
   orderdb:
     container_name: orderdb
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Microsoft2022
+      - MSSQL_PID=Developer
+    restart: always
+    ports:
+      - "1433:1433" 
+
+  rabbitmq:
+    container_name: rabbitmq
     restart: always
     ports:
       - "5672:5672"
       - "15672:15672"
-
-  rabbitmq:
-    container_name: rabbitmq
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=user@domain.com
-      - PGADMIN_DEFAULT_PASSWORD=admin1234
-    restart: always
-    ports:
-      - "5050:80"
-    volumes:
-      - pgadmin_data:/root/.pgadmin
+    
 
   pgadmin:
     container_name: pgadmin

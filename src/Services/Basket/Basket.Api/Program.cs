@@ -37,6 +37,8 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");
 });
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+//AutoMapper Config
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 //Grpc configuration
 builder.Services.AddGrpcClient<RebateProtoService.RebateProtoServiceClient>(u => u.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]));
 builder.Services.AddScoped<RebateGrpcService>();

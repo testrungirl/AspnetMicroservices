@@ -1,5 +1,6 @@
 using Basket.Api.GrpcServices;
 using Basket.Api.Repository;
+using MassTransit;
 using Microsoft.OpenApi.Models;
 using Rebate.GRPC.Protos;
 
@@ -30,13 +31,23 @@ builder.Services.AddSwaggerGen(options =>
         //}
     });
 });
+//Redis Configuration
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");
 });
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
-builder.Services.AddGrpcClient<RebateProtoService.RebateProtoServiceClient>(u=>u.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]));
+//Grpc configuration
+builder.Services.AddGrpcClient<RebateProtoService.RebateProtoServiceClient>(u => u.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]));
 builder.Services.AddScoped<RebateGrpcService>();
+//MassTransit-RabbitMQ Configuration
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, config) =>
+    {
+        config.Host(builder.Configuration["EventbusSettings:HostAddress"]);
+    });
+});
 
 var app = builder.Build();
 

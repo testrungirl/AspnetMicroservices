@@ -1,6 +1,13 @@
-﻿namespace Ordering.Api.EventBusConsumer
+﻿using ErrorBus.Messages.Events;
+using MassTransit;
+
+namespace Ordering.Api.EventBusConsumer
 {
-    public class BasketCheckoutConsumer
+    public class BasketCheckoutConsumer : IConsumer<BasketCheckoutEvent>
     {
+        public Task Consume(ConsumeContext<BasketCheckoutEvent> context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

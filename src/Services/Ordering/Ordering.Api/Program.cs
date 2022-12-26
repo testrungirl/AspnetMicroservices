@@ -1,5 +1,6 @@
 using ErrorBus.Messages.Common;
 using MassTransit;
+using Ordering.Api.EventBusConsumer;
 using Ordering.Api.Extensions;
 using Ordering.Application;
 using Ordering.Infrastructure;
@@ -19,7 +20,8 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 //MassTransit-RabbitMQ Configuration
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumer<BasketCheckoutConsummer>();
+    x.AddConsumer<BasketCheckoutConsumer>();
+
     x.UsingRabbitMq((context, config) =>
     {
         config.Host(builder.Configuration["EventbusSettings:HostAddress"]);

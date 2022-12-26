@@ -1,3 +1,5 @@
+using ErrorBus.Messages.Common;
+using MassTransit;
 using Ordering.Api.Extensions;
 using Ordering.Application;
 using Ordering.Infrastructure;
@@ -14,6 +16,19 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+//MassTransit-RabbitMQ Configuration
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<BasketCheckoutConsummer>();
+    x.UsingRabbitMq((context, config) =>
+    {
+        config.Host(builder.Configuration["EventbusSettings:HostAddress"]);
+        config.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c =>
+        {
+            c.ConfigureConsumer<BasketCheckoutConsumer>(context);
+        });
+    });
+});
 
 var app = builder.Build();
 app.MigrateDatabase<OrderContext>((context, services) =>
